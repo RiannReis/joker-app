@@ -3,7 +3,6 @@ package co.tiagoaguiar.tutorial.jokerappdev.presentation
 import android.os.Handler
 import android.os.Looper
 import co.tiagoaguiar.tutorial.jokerappdev.model.Category
-import co.tiagoaguiar.tutorial.jokerappdev.view.CategoryItem
 import co.tiagoaguiar.tutorial.jokerappdev.view.HomeFragment
 
 class HomePresenter(private val view: HomeFragment){
@@ -13,23 +12,9 @@ class HomePresenter(private val view: HomeFragment){
         fakeRequest()
     }
 
-    fun onSuccess(response: List<Category>){
-        //OP 01:
+    fun onSuccess(response: List<String>){
 
-//        val categories = mutableListOf<CategoryItem>()
-//
-//        for (category in response){
-//            categories.add(CategoryItem(category))
-//        }
-
-        //OP 02:
-//        val categories = response.map { category ->
-//            CategoryItem(category)
-//        }
-
-        //OP 03:
-        val categories = response.map { CategoryItem(it) }
-
+        val categories = response.map { Category(it, 0xFFFF0000) }
 
         view.showCategories(categories)
     }
@@ -43,17 +28,14 @@ class HomePresenter(private val view: HomeFragment){
     }
 
 
-    //SIMULAR UMA REQUISIÇÃO HTTP
     private fun fakeRequest() {
         Handler(Looper.getMainLooper()).postDelayed({
             val response = arrayListOf(
-                Category("categoria 1", 0xffface6e),
-                Category("categoria 2", 0xffecd16d),
-                Category("categoria 3", 0xffded36e),
-                Category("categoria 4", 0xffcfd571)
+                "categoria 1",
+                "categoria 2",
+                "categoria 3",
+                "categoria 4"
             )
-
-            //aqui a lista já está pronta (response)
 
             onSuccess(response)
 //            onError("Falha na conexão, tente novamente mais tarde.")
@@ -63,3 +45,10 @@ class HomePresenter(private val view: HomeFragment){
     }
 
 }
+
+
+        // 1- O CICLO DE VIDA DO FRAGMENT FAZ A AÇÃO (CHAMAR O PRESENTER PEDINDO AS CATEGORIAS)
+        // 2- O PRESENTER PEDE A LISTA DE CATEGORIAS NO MODEL
+        // 3- O MODEL DEVOLVE UMA LISTA List<String>
+        // 4- O PRESENTER FORMATA ESSA LISTA (String) EM Category (MODEL)
+        // 5- A VIEW PEGA A LISTA DE List<Category> E CONVERTE PARA O List<CategoryItem>
