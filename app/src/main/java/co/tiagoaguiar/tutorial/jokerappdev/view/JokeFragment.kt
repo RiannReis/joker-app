@@ -1,13 +1,19 @@
 package co.tiagoaguiar.tutorial.jokerappdev.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import co.tiagoaguiar.tutorial.jokerappdev.R
 
 class JokeFragment : Fragment() {
+
+    companion object{
+        const val CATEGORY_KEY = "category"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,4 +25,13 @@ class JokeFragment : Fragment() {
             container,
             false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val categoryName = arguments?.getString(CATEGORY_KEY)
+        Log.d("test", categoryName.toString())
+
+        activity?.findViewById<Toolbar>(R.id.toolbar)?.title = categoryName
+    }
+
 }

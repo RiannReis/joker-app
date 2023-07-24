@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.tiagoaguiar.tutorial.jokerappdev.R
-import co.tiagoaguiar.tutorial.jokerappdev.data.CategoryRemoteDataSource
 import co.tiagoaguiar.tutorial.jokerappdev.model.Category
 import co.tiagoaguiar.tutorial.jokerappdev.presentation.HomePresenter
 import com.xwray.groupie.GroupieAdapter
@@ -25,10 +25,6 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//     val dataSource = CategoryRemoteDataSource()
-//                  HomePresenter(this, dataSource) segunda opção,
-//                  pode ir direto no construtor do HomePresenter o valor DEFAULT,
-//                  já que só tem um objeto como dependencia.
         presenter = HomePresenter(this)
     }
 
@@ -39,8 +35,9 @@ class HomeFragment : Fragment() {
     ): View? {
         return inflater.inflate(
             R.layout.fragment_home,
-        container,
-        false)
+            container,
+            false
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,26 +48,36 @@ class HomeFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_main)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        presenter.findAllCategories()
+        if (adapter.itemCount == 0) {
+            presenter.findAllCategories()
+        }
 
         recyclerView.adapter = adapter
+        adapter.setOnItemClickListener { item, view ->
+            val bundle = Bundle()
+            val categoryName = (item as CategoryItem).category.name
+            bundle.putString(JokeFragment.CATEGORY_KEY, categoryName)
+
+            findNavController().navigate(R.id.action_nav_home_to_nav_joke, bundle)
+        }
     }
 
-    fun showCategories(response: List<Category>){
+    fun showCategories(response: List<Category>) {
         val categories = response.map { CategoryItem(it) }
         adapter.addAll(categories)
         adapter.notifyDataSetChanged()
 
     }
-    fun showFailure(message: String){
+
+    fun showFailure(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    fun showProgress(){
+    fun showProgress() {
         progressBar.visibility = View.VISIBLE
     }
 
-    fun hideProgress(){
+    fun hideProgress() {
         progressBar.visibility = View.GONE
     }
 }
