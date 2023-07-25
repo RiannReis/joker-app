@@ -19,7 +19,6 @@ class CategoryRemoteDataSource {
                         val categories = response.body()
                         callback.onSuccess(categories ?: emptyList())
                     } else {
-                        //quando server devolve status de error < 500
                         val error = response.errorBody()?.toString()
                         callback.onError(error ?: "Erro desconhecido")
                     }
