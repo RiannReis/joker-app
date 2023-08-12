@@ -14,16 +14,21 @@
 
 ---
 ## Description:
-A Chuck Norris jokes app, with different categories and menu using modern frameworks.
+A Chuck Norris jokes app, with categories of jokes and side-menu using modern frameworks.
 
-In this application, the application of applying a side menu with Coordinator layout, using jetpack for better organization, modern navigation, ...
+In this application, I studied new methods of organizing layouts, such as applying a side menu and synchronizing it with the top toolbar, using fragments and a single activity for the application.
 
-In addition to different libraries to optimize application development.
-For example:
-* groupie
-* retrofit
-* splash screen
-* picasso
+Also the introduction the MVP design pattern and applying it to this project. In addition to different libraries to optimize application development.
+
+
+Used libraries:
+* **groupie** : *Groupie is a simple, flexible library for complex RecyclerView layouts.*
+
+* **retrofit** : *A type-safe HTTP client for Android and Java.*
+
+* **splash screen** : *Starting in Android 12, the SplashScreen API lets apps launch with animation, including an into-app motion at launch, a splash screen showing your app icon, and a transition to your app itself.*
+
+* **picasso** : *A powerful image downloading and caching library for Android*
 
 ### Demo: 
 ![screenrecorder-2023-08-05-22-09-29-914_ThwugEE1](https://github.com/RiannReis/joker-app/assets/106779395/67ff957e-1fd8-49b6-8937-eaa12900ea5d)
