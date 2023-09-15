@@ -18,7 +18,7 @@ A Chuck Norris jokes app, with categories of jokes and side-menu using modern fr
 
 In this application, I studied new methods of organizing layouts, such as applying a side menu and synchronizing it with the top toolbar, using fragments and a single activity for the application.
 
-Also the introduction the MVP design pattern and applying it to this project. In addition to different libraries to optimize application development.
+Also the introduction the MVP (Model-View-Presenter) design pattern and applying it to this project. In addition to different libraries to optimize application development.
 
 
 Used libraries:
